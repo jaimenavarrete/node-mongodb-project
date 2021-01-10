@@ -1,0 +1,197 @@
+body {
+    background: #404040;
+    color: #F2F2F2;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    margin: 4em auto;
+    max-width: 1200px;
+    width: 90%;
+}
+
+
+/**** ESTILOS DE LA BARRA DE OPCIONES ****/
+
+.container .options,
+.container .footer {
+    background: #0D0D0D;
+    border-bottom: 1px solid #404040;
+    padding: 1em;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Estilos de los botones */
+
+.container .buttons button {
+    background: transparent;
+    border: none;
+    color: #F2F2F2;
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: .25em .5em;
+    margin-right: 1em;
+}
+
+.container .buttons button:hover {
+    background: #2D77AE;
+}
+
+/* Estilos de la barra de busqueda */
+
+.container .options .search-bar input {
+    /* background: #404040; */
+    border: none;
+    border-radius: 5px;
+    /* color: #F2F2F2; */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    outline: none;
+    padding: .5em 1em;
+}
+
+.container .options .search-bar select,
+.container .footer .show-entries select {
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    padding: .4em;
+    margin: 0 .5em;
+}
+
+
+/**** ESTILOS DE LA TABLA ****/
+
+.container table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Estilos de la pantalla de carga de datos */
+
+.container .loading {
+    border: 8px solid #FFFFFF;
+    border-top: 8px solid transparent;
+    border-radius: 50%;
+    height: 50px;
+    margin: 0 auto;
+    width: 50px;
+
+    animation-name: girar;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes girar {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.container .loading-text {
+    font-size: 1.25em;
+    font-weight: bold;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+/* Estilos de la cabecera */
+
+.container table thead tr {
+    background: #0D0D0D;
+    border-bottom: 1px solid #404040;
+}
+
+.container table thead tr th {
+    padding: 1.25em;
+}
+
+/* Estilos de las filas */
+
+.container table tbody tr {
+    transition: .1s all ease-out;
+}
+
+.container table tbody tr:nth-child(2n - 1) {
+    background: #1A1A1A;
+}
+
+.container table tbody tr:nth-child(2n) {
+    background: #262626;
+}
+
+.container table tbody tr:hover {
+    background: #2D77AE;
+}
+
+.container table tbody tr td {
+    padding: 1em;
+}
+
+/* Estilos especificos para el status del registro */
+
+.container table tbody tr td .status {
+    font-weight: bold;
+}
+
+.container table tbody tr td .status::before {
+    content: "";
+
+    background: #FFF;
+    border-radius: 50%;
+    display: inline-block;
+    height: 11px;
+    margin-right: .5em;
+    width: 11px;
+}
+
+.container table tbody tr td .active {
+    color: #AAFE46;
+}
+.container table tbody tr td .active::before {
+    background: #AAFE46;
+}
+
+.container table tbody tr td .away {
+    color: #E5A494;
+}
+.container table tbody tr td .away::before {
+    background: #E5A494;
+}
+
+.container table tbody tr td .offline {
+    color: #C9D0D7;
+}
+.container table tbody tr td .offline::before {
+    background: #C9D0D7;
+}
+
+
+/**** ESTILOS DE LA BARRA DEL FOOTER ****/
+
+/* Estilos de los botones de la paginacion */
+
+.container .footer .pagination button {
+    font-size: 1em;
+    margin-right: .5em;
+    padding: .5em;
+    width: 3.5em;
+}
+
+.container .footer .pagination .active {
+    background: #2D77AE;
+}
+
+.container .footer .pagination .divider {
+    margin-right: .5em;
+}

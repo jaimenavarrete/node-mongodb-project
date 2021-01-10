@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{titlePage}
+
+        link(rel="preconnect" href="https://fonts.gstatic.com")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap")
+
+        link(rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css")
+
+        link(rel="stylesheet" href="css/styles.css")
+    body
+        .container
+            .section
+                .options
+                    .buttons
+                        button
+                            i(class="las la-plus-circle")
+                        button
+                            i(class="las la-pen")
+                        button
+                            i(class="las la-trash")
+                    .search-bar
+                        span Search by:
+                        select(name="search-item" id="search-item")
+                            option(value="anything") Anything
+                            option(value="status") Status
+                            option(value="nombre") Name
+                            option(value="company") Company
+                            option(value="country") Country
+                            option(value="email") Email
+                        input(type="text" id="search-bar")
+                
+                table#clients
+                    thead
+                        tr
+                            th #
+                            th 
+                                input(type="checkbox" name="selectAll" id="select-all")
+                            th Status
+                            th Name
+                            th Company
+                            th Country
+                            th Email
+                    tbody#rows-clients
+                        tr
+                            td(colspan="7")
+                                .loading
+                                p.loading-text Getting data...
+                
+                .footer
+                    .show-entries
+                        p
+                            span Show
+                            select(name="entries-number" id="entries-number")
+                                option(value="10") 10
+                                option(value="25") 25
+                                option(value="50") 50
+                                option(value="100") 100
+                                option(value="all") All
+                            span entries
+                    div(id="pagination-container" class="buttons pagination")
+
+        script(src="js/scripts.js")
+                    
