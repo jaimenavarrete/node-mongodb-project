@@ -23,8 +23,8 @@ const getClientsData = () => {
         const xhttp = new XMLHttpRequest()
 
         // xhttp.open('GET', 'https://www.json-generator.com/api/json/get/bZvyOuDMlK?indent=2')
-        xhttp.open('GET', 'http://localhost:3001/api/users')
         // xhttp.open('GET', 'http://www.json-generator.com/api/json/get/ceDXcPLqsy?indent=2') // 3200 Datos
+        xhttp.open('GET', 'http://localhost:3001/api/users')
         xhttp.send()
 
         xhttp.onreadystatechange = () => {
