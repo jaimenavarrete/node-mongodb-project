@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 
 // Import api users controller
 const usersController = require('../controllers/usersController');
@@ -25,6 +27,11 @@ module.exports = () => {
     router.get('/', cors(corsOptions), async (req, res) => {
         const users = await usersController.showAllUsers();
         res.json(users);
+    });
+
+    router.post('/', cors(corsOptions), upload.none(), (req, res) => {
+        // console.log(req.body)
+        res.send('User succesfully added')
     });
 
     return router;

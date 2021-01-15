@@ -202,15 +202,23 @@ body {
     background: rgba(0,0,0,.75);
     margin: 0;
     height: 100%;
+    opacity: 0.1;
+    transition: .2s all ease-in;
     width: 100%;
+    z-index: -1;
 
     display: flex;
     align-items: center;
     justify-content: center;
     
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
+}
+
+.modal-container-active {
+    opacity: 1;
+    z-index: 1;
 }
 
 .modal-container .modal-form-container {
@@ -218,7 +226,13 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 15px #000;
     max-width: 500px;
+    transform: translateY(-200%);
+    transition: .2s all ease-in;
     width: 90%;
+}
+
+.modal-container-active .modal-form-container {
+    transform: translateY(0);
 }
 
 .modal-container .modal-form {
@@ -248,6 +262,8 @@ body {
 
 .modal-container h2 {
     color: #E4E4E4;
+    font-family: 'Comfortaa', cursive;
+    font-weight: bold;
     margin: 0;
 }
 
@@ -255,7 +271,7 @@ body {
 .modal-container select,
 .modal-container .modal-form button {
     background: #424242;
-    border: 2px solid #1A1A1A;
+    border: 1px solid #1A1A1A;
     border-radius: 5px;
     box-sizing: border-box;
     color: #E4E4E4;
@@ -267,9 +283,14 @@ body {
     width: 100%;
 }
 
+.modal-container select,
+.modal-container .modal-form button {
+    cursor: pointer;
+}
+
 .modal-container input::placeholder,
 .modal-container select::placeholder {
-    color: #CCC;
+    color: #999999;
 }
 
 .modal-container input:focus,
@@ -281,9 +302,8 @@ body {
 .modal-container .modal-form button {
     background: #2D77AE;
     color: #E4E4E4;
-    cursor: pointer;
 }
 
 .modal-container .modal-form button:hover {
-    background: #28699A;
+    background: #235B86;
 }

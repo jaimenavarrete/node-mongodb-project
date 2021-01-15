@@ -247,3 +247,48 @@ paginationContainer.addEventListener('click', e => {
     getCurrentPage(e)
     printCompleteClientsData()
 })
+
+// MODAL WINDOW
+
+const createUserBtn = document.getElementById('create-user-btn'), 
+      modalContainer = document.getElementById('modal-container'),
+      modalFormContainer = document.getElementById('modal-form-container'),
+      modalForm = document.querySelector('#modal-form'),
+      modalContainerClose = document.getElementById('modal-container-close')
+
+createUserBtn.addEventListener('click', () => {
+    modalContainer.classList.add('modal-container-active');
+})
+
+modalContainerClose.addEventListener('click', () => {
+    modalContainer.classList.remove('modal-container-active');
+})
+
+modalContainer.addEventListener('click', () => {
+    modalContainer.classList.remove('modal-container-active');
+})
+
+modalFormContainer.addEventListener('click', e => e.stopPropagation())
+
+modalForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const xhttp = new XMLHttpRequest()
+    const formData = new FormData(modalForm)
+
+    xhttp.open('POST', 'http://localhost:3001/api/users', true)
+    xhttp.send(formData)
+
+    xhttp.onreadystatechange = () => {
+        if(xhttp.readyState === 4 && xhttp.status === 200) {
+            const data = xhttp.responseText
+
+            alert(data)
+        }
+    }
+
+    // fetch('http://localhost:3001/api/users/', {
+    //     method: 'POST',
+    //     body: formData
+    // });
+})
