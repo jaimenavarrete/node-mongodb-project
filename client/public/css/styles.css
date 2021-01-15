@@ -11,7 +11,7 @@ body {
 }
 
 
-/**** ESTILOS DE LA BARRA DE OPCIONES ****/
+/**** OPTIONS BAR STYLES ****/
 
 .container .options,
 .container .footer {
@@ -25,7 +25,7 @@ body {
     justify-content: space-between;
 }
 
-/* Estilos de los botones */
+/* Buttons styles */
 
 .container .buttons button {
     background: transparent;
@@ -41,7 +41,7 @@ body {
     background: #2D77AE;
 }
 
-/* Estilos de la barra de busqueda */
+/* Search bar styles */
 
 .container .options .search-bar input {
     /* background: #404040; */
@@ -66,14 +66,14 @@ body {
 }
 
 
-/**** ESTILOS DE LA TABLA ****/
+/**** TABLE STYLES ****/
 
 .container table {
     border-collapse: collapse;
     width: 100%;
 }
 
-/* Estilos de la pantalla de carga de datos */
+/* Styles of the loading screen of the data */
 
 .container .loading {
     border: 8px solid #FFFFFF;
@@ -105,7 +105,7 @@ body {
     text-align: center;
 }
 
-/* Estilos de la cabecera */
+/* Table header styles */
 
 .container table thead tr {
     background: #0D0D0D;
@@ -116,7 +116,7 @@ body {
     padding: 1.25em;
 }
 
-/* Estilos de las filas */
+/* Table rows styles */
 
 .container table tbody tr {
     transition: .1s all ease-out;
@@ -138,7 +138,7 @@ body {
     padding: 1em;
 }
 
-/* Estilos especificos para el status del registro */
+/* Specific styles for the register status */
 
 .container table tbody tr td .status {
     font-weight: bold;
@@ -177,9 +177,9 @@ body {
 }
 
 
-/**** ESTILOS DE LA BARRA DEL FOOTER ****/
+/**** TABLE FOOTER BAR STYLES ****/
 
-/* Estilos de los botones de la paginacion */
+/* Pagination buttons styles */
 
 .container .footer .pagination button {
     font-size: 1em;
@@ -194,4 +194,96 @@ body {
 
 .container .footer .pagination .divider {
     margin-right: .5em;
+}
+
+/**** MODAL FORM STYLES ****/
+
+.modal-container {
+    background: rgba(0,0,0,.75);
+    margin: 0;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.modal-container .modal-form-container {
+    background: #212121;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #000;
+    max-width: 500px;
+    width: 90%;
+}
+
+.modal-container .modal-form {
+    margin: 0 auto;
+    padding: 1em;
+    width: 75%;
+}
+
+.modal-container .container-button {
+    border-bottom: 2px solid #0D0D0D;
+    margin-bottom: 2em;
+    padding: 1em;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-container .modal-container-close {
+    background: transparent;
+    border: none;
+    color: #E4E4E4;
+    cursor: pointer;
+    font-size: 2em;
+    padding: 0;
+}
+
+.modal-container h2 {
+    color: #E4E4E4;
+    margin: 0;
+}
+
+.modal-container input,
+.modal-container select,
+.modal-container .modal-form button {
+    background: #424242;
+    border: 2px solid #1A1A1A;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #E4E4E4;
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    margin-bottom: 1em;
+    padding: .75em 1em;
+    width: 100%;
+}
+
+.modal-container input::placeholder,
+.modal-container select::placeholder {
+    color: #CCC;
+}
+
+.modal-container input:focus,
+.modal-container select:focus {
+    outline: none;
+    border: 2px solid #2D77AE;
+}
+
+.modal-container .modal-form button {
+    background: #2D77AE;
+    color: #E4E4E4;
+    cursor: pointer;
+}
+
+.modal-container .modal-form button:hover {
+    background: #28699A;
 }

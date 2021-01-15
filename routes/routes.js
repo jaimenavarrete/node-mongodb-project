@@ -5,7 +5,10 @@ const cors = require('cors');
 // Import api users controller
 const usersController = require('../controllers/usersController');
 
-const whiteList = ['http://localhost:8080'];
+const whiteList = [
+    'http://localhost:8080',
+    'http://127.0.0.1:5500'
+];
 
 const corsOptions = {
     origin: function(origin, callback) {

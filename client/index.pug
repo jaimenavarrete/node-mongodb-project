@@ -12,6 +12,31 @@ html(lang="en")
 
         link(rel="stylesheet" href="css/styles.css")
     body
+        div(id="modal-container" class="modal-container")
+            div(id="modal-form-container" class="modal-form-container")
+                .container-button
+                    h2 Agregar un nuevo usuario
+                    button(id="modal-container-close" class="modal-container-close")
+                        i(class="las la-times")
+                        
+                form(id="modal-form" class="modal-form")
+                    input(type="text" name="name" id="name" class="modal-form-input" placeholder="Name:")
+                    input(type="text" name="company" id="company" class="modal-form-input" placeholder="Company:")
+                    select(name="country" id="country" class="modal-form-input" placeholder="Country:")
+                        option(value="El Salvador") El Salvador
+                        option(value="Guatemala") Guatemala
+                        option(value="Mexico") Mexico
+                        option(value="United States") United States
+                        option(value="Italy") Italy
+                        option(value="Spain") Spain
+                        option(value="Greece") Greece
+                        option(value="Estonia") Estonia
+                        option(value="Nigeria") Nigeria
+                        option(value="Antarctica") Antarctica
+                    input(type="email" name="email" id="email" class="modal-form-input" placeholder="Email:")
+                    button(type="submit" id="modal-form-submit") Agregar usuario
+
+
         .container
             .section
                 .options
@@ -61,6 +86,7 @@ html(lang="en")
                                 option(value="100") 100
                                 option(value="all") All
                             span entries
+
                     div(id="pagination-container" class="buttons pagination")
 
         script(src="js/scripts.js")

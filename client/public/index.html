@@ -10,6 +10,32 @@
     <link rel="stylesheet" href="css/styles.css"/>
   </head>
   <body>
+    <div class="modal-container" id="modal-container">
+      <div class="modal-form-container" id="modal-form-container">
+        <div class="container-button">
+          <h2>Agregar un nuevo usuario</h2>
+          <button class="modal-container-close" id="modal-container-close"><i class="las la-times"></i></button>
+        </div>
+        <form class="modal-form" id="modal-form">
+          <input class="modal-form-input" type="text" name="name" id="name" placeholder="Name:"/>
+          <input class="modal-form-input" type="text" name="company" id="company" placeholder="Company:"/>
+          <select class="modal-form-input" name="country" id="country" placeholder="Country:">
+            <option value="El Salvador">El Salvador</option>
+            <option value="Guatemala">Guatemala</option>
+            <option value="Mexico">Mexico</option>
+            <option value="United States">United States</option>
+            <option value="Italy">Italy</option>
+            <option value="Spain">Spain</option>
+            <option value="Greece">Greece</option>
+            <option value="Estonia">Estonia</option>
+            <option value="Nigeria">Nigeria</option>
+            <option value="Antarctica">Antarctica</option>
+          </select>
+          <input class="modal-form-input" type="email" name="email" id="email" placeholder="Email:"/>
+          <button type="submit" id="modal-form-submit">Agregar usuario</button>
+        </form>
+      </div>
+    </div>
     <div class="container">
       <div class="section">
         <div class="options">

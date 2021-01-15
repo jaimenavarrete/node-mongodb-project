@@ -18,8 +18,7 @@ let clientsData = [],
 
 // Gets all the clients from our API in JSON format, with AJAX
 
-const getClientsData = () => {
-    return new Promise(resolve => {
+const getClientsData = () => new Promise(resolve => {
         const xhttp = new XMLHttpRequest()
 
         // xhttp.open('GET', 'https://www.json-generator.com/api/json/get/bZvyOuDMlK?indent=2')
@@ -31,25 +30,12 @@ const getClientsData = () => {
             if(xhttp.readyState === 4 && xhttp.status === 200) {
                 const data = JSON.parse(xhttp.responseText)
 
-                for(let item of data) {
-                    switch(item.status) {
-                        case 0: item.status = 'Offline'
-                            break;
-                        case 1: item.status = 'Away'
-                            break;
-                        case 2: item.status = 'Active'
-                            break;
-                    }
-                }
-
                 clientsData = data
 
                 resolve(true)
             }
         }
     })
-}
-
 
 const getEntriesNumber = () => {
     clientsPerPage = entriesNumber.value === 'all' 
@@ -110,8 +96,17 @@ const printPaginationButtons = () => {
 }
 
 
-const printRegister = (position, item) => {
+const printRegisterRow = (position, item) => {
     const row = document.createElement('tr')
+
+    switch(item.status) {
+        case 0: item.status = 'Offline'
+            break;
+        case 1: item.status = 'Away'
+            break;
+        case 2: item.status = 'Active'
+            break;
+    }
     
     row.innerHTML = `
         <td>${position}</td>
@@ -140,9 +135,9 @@ const printCompleteClientsData = () => {
     const templateRows = document.createDocumentFragment()
 
     for(let i = initialClient; i <= finalClient; i++) {
-        if(i >= clientsData.length) return
+        if(i >= clientsData.length) break
 
-        templateRows.appendChild(printRegister(i+1, clientsData[i]))
+        templateRows.appendChild(printRegisterRow(i+1, clientsData[i]))
     }
 
     rowsClientsContainer.appendChild(templateRows)
@@ -177,7 +172,7 @@ const printSearchedClientsData = () => {
         const templateRows = document.createDocumentFragment()
 
         for(let i = 0; i < searchedClientsData.length; i++)
-            templateRows.appendChild(printRegister(i+1, searchedClientsData[i]))
+            templateRows.appendChild(printRegisterRow(i+1, searchedClientsData[i]))
         
         rowsClientsContainer.appendChild(templateRows)
     }
