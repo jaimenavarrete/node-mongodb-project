@@ -1,26 +1,38 @@
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
 
-// Connection URL
-const url = 'mongodb://localhost:27017';
+mongoose.Promise = global.Promise;
+mongoose.connect(
+    'mongodb://localhost:27017/usersDatatable',
+    { 
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
 
-// Database Name
-const dbName = 'usersDatatable';
+module.exports = mongoose
 
-const openDbConnection = async () => {
-    const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+// const { MongoClient } = require('mongodb');
 
-    try {
-        // Connect to MongoDB Driver
-        await client.connect();
+// // Connection URL
+// const url = 'mongodb://localhost:27017';
 
-        // Select database
-        const db = await client.db(dbName);
+// // Database Name
+// const dbName = 'usersDatatable';
 
-        return db;
-    }
-    catch(err) {
-        throw `Error: ${err}`;
-    }
-}
+// const openDbConnection = async () => {
+//     const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-module.exports = openDbConnection;
+//     try {
+//         // Connect to MongoDB Driver
+//         await client.connect();
+
+//         // Select database
+//         const db = await client.db(dbName);
+
+//         return db;
+//     }
+//     catch(err) {
+//         throw `Error: ${err}`;
+//     }
+// }
+
+// module.exports = openDbConnection;

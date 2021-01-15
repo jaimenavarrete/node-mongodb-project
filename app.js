@@ -3,6 +3,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 
+// MongoDB Connection with mongoose
+const mongoose = require('./config/db');
+mongoose.connection.once('open', () => console.log('Connected to MongoDB'));
+
 // Set variables of the system
 app.set('port', process.env.PORT || 3001);
 
@@ -10,7 +14,7 @@ app.set('port', process.env.PORT || 3001);
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Middleware for JSON
-app.use(express.json());
+app.use(bodyParser.json());
 
 // Middleware to allow external connections to the API
 app.use(cors());

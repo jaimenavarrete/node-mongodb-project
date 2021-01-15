@@ -276,7 +276,7 @@ modalForm.addEventListener('submit', e => {
     const xhttp = new XMLHttpRequest()
     const formData = new FormData(modalForm)
 
-    xhttp.open('POST', 'http://localhost:3001/api/users', true)
+    xhttp.open('POST', 'http://localhost:3001/api/users')
     xhttp.send(formData)
 
     xhttp.onreadystatechange = () => {
