@@ -26,3 +26,11 @@ exports.createUser = async (req, res) => {
 
     res.send('User added');
 }
+
+exports.editUser = async (req, res) => {
+
+}
+
+exports.deleteUser = async (req, res) => {
+    
+}

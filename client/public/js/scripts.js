@@ -252,10 +252,11 @@ paginationContainer.addEventListener('click', e => {
 })
 
 
-// MODAL WINDOW
+// MODAL WINDOW (CREATE AND EDIT)
 
 const createUserBtn = document.getElementById('create-user-btn'),
       editUserBtn = document.getElementById('edit-user-btn'),
+      deleteUserBtn = document.getElementById('delete-user-btn'),
       modalContainer = document.getElementById('modal-container'),
       modalFormContainer = document.getElementById('modal-form-container'),
       modalForm = document.getElementById('modal-form'),
@@ -312,12 +313,72 @@ createUserBtn.addEventListener('click', () => {
     modalFormTitle.textContent = 'Agregar un nuevo usuario'
     modalFormBtn.textContent = 'Agregar usuario'
 
+    modalContainer.dataset.user = null;
     modalContainer.classList.add('modal-container-active')
 })
 
 editUserBtn.addEventListener('click', () => {
-    modalFormTitle.textContent = 'Editar un usuario existente'
-    modalFormBtn.textContent = 'Editar usuario'
+    const rows = Array.from(document.querySelectorAll('#rows-clients tr'))
+    
+    const rowsChecked = rows.filter(row => {
+        if(row.children[1].children[0].checked === true)
+            return row
+    })
 
-    modalContainer.classList.add('modal-container-active')
+    if(rowsChecked.length === 0) {
+        Swal.fire({
+            title: 'Error',
+            text: 'You must select one user to edit',
+            icon: 'error'
+        })
+    }
+    else if(rowsChecked.length > 1) {
+        Swal.fire({
+            title: 'Error',
+            text: 'You can only choose one user to edit',
+            icon: 'error'
+        })
+    }
+    else {
+        modalFormTitle.textContent = 'Editar un usuario existente'
+        modalFormBtn.textContent = 'Editar usuario'
+
+        modalContainer.classList.add('modal-container-active')
+        console.log(rowsChecked)
+    }
+})
+
+deleteUserBtn.addEventListener('click', () => {
+    const rows = Array.from(document.querySelectorAll('#rows-clients tr'))
+    
+    const rowsChecked = rows.filter(row => {
+        if(row.children[1].children[0].checked === true)
+            return row
+    })
+
+    if(rowsChecked.length === 0) {        
+        Swal.fire({
+            title: 'Error',
+            text: 'You must select one or more users to delete',
+            icon: 'error'
+        })
+    }
+    else {
+        Swal.fire({
+            title: 'Delete user',
+            text: 'Are you sure to delete this user/s?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it',
+        })
+        .then(result => {
+            if(result.isConfirmed) {
+                Swal.fire({
+                    title: 'User'
+                })
+            }
+        })
+
+        console.log(rowsChecked)
+    }
 })

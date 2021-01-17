@@ -2,11 +2,15 @@ body {
     background: #404040;
     color: #F2F2F2;
     font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 .container {
-    margin: 4em auto;
+    display: block;
+    margin: 0 auto;
     max-width: 1200px;
+    padding-top: 4em;
     width: 90%;
 }
 
@@ -17,12 +21,17 @@ body {
 .container .footer {
     background: #0D0D0D;
     border-bottom: 1px solid #404040;
+    border-radius: 5px 5px 0 0;
     padding: 1em;
 
     display: flex;
 
     align-items: center;
     justify-content: space-between;
+}
+
+.container .footer {
+    border-radius: 0 0 5px 5px;
 }
 
 /* Buttons styles */

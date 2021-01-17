@@ -32,5 +32,9 @@ module.exports = () => {
     router.options('/', cors(corsOptions))
     router.post('/', cors(corsOptions), usersController.createUser);
 
+    router.put('/', cors(corsOptions), usersController.editUser);
+
+    router.delete('/', cors(corsOptions), usersController.deleteUser);
+
     return router;
 }
