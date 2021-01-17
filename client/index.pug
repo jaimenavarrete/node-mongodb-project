@@ -13,10 +13,10 @@ html(lang="en")
 
         link(rel="stylesheet" href="css/styles.css")
     body
-        div(id="modal-container" class="modal-container")
+        div(id="modal-container" class="modal-container" data-user="")
             div(id="modal-form-container" class="modal-form-container")
                 .container-button
-                    h2 Agregar un nuevo usuario
+                    h2#modal-form-title
                     button(id="modal-container-close" class="modal-container-close")
                         i(class="las la-times")
 
@@ -39,7 +39,7 @@ html(lang="en")
                         option(value="Nigeria") Nigeria
                         option(value="Antarctica") Antarctica
                     input(type="email" name="email" id="email" class="modal-form-input" placeholder="Email:")
-                    button(type="submit" id="modal-form-submit") Agregar usuario
+                    button(type="submit" id="modal-form-submit")
 
 
         .container
@@ -48,7 +48,7 @@ html(lang="en")
                     .buttons
                         button#create-user-btn
                             i(class="las la-plus-circle")
-                        button
+                        button#edit-user-btn
                             i(class="las la-pen")
                         button
                             i(class="las la-trash")

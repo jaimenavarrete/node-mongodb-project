@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="css/styles.css"/>
   </head>
   <body>
-    <div class="modal-container" id="modal-container">
+    <div class="modal-container" id="modal-container" data-user="">
       <div class="modal-form-container" id="modal-form-container">
         <div class="container-button">
-          <h2>Agregar un nuevo usuario</h2>
+          <h2 id="modal-form-title"></h2>
           <button class="modal-container-close" id="modal-container-close"><i class="las la-times"></i></button>
         </div>
-        <form class="modal-form" id="modal-form" method="post">
+        <form class="modal-form" id="modal-form">
           <select class="modal-form-input" name="status" id="status" placeholder="Status:">
             <option value="2">Active</option>
             <option value="1">Away</option>
@@ -37,7 +37,7 @@
             <option value="Antarctica">Antarctica</option>
           </select>
           <input class="modal-form-input" type="email" name="email" id="email" placeholder="Email:"/>
-          <button type="submit" id="modal-form-submit">Agregar usuario</button>
+          <button type="submit" id="modal-form-submit"></button>
         </form>
       </div>
     </div>
@@ -46,7 +46,7 @@
         <div class="options">
           <div class="buttons">
             <button id="create-user-btn"><i class="las la-plus-circle"></i></button>
-            <button><i class="las la-pen"></i></button>
+            <button id="edit-user-btn"><i class="las la-pen"></i></button>
             <button><i class="las la-trash"></i></button>
           </div>
           <div class="search-bar"><span>Search by:</span>

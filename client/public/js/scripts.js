@@ -30,6 +30,17 @@ const getClientsData = () => new Promise(resolve => {
             if(xhttp.readyState === 4 && xhttp.status === 200) {
                 const data = JSON.parse(xhttp.responseText)
 
+                data.forEach(item => {
+                    switch(item.status) {
+                        case 0: item.status = 'Offline'
+                            break;
+                        case 1: item.status = 'Away'
+                            break;
+                        case 2: item.status = 'Active'
+                            break;
+                    }
+                })
+
                 clientsData = data
 
                 resolve(true)
@@ -98,15 +109,6 @@ const printPaginationButtons = () => {
 
 const printRegisterRow = (position, item) => {
     const row = document.createElement('tr')
-
-    switch(item.status) {
-        case 0: item.status = 'Offline'
-            break;
-        case 1: item.status = 'Away'
-            break;
-        case 2: item.status = 'Active'
-            break;
-    }
     
     row.innerHTML = `
         <td>${position}</td>
@@ -148,11 +150,12 @@ const getSearchedClientsData = () => {
     searchedClientsData = clientsData.filter(client => {
         if(searchItem.value === 'anything') {
             client.id = ''
+            client._id = ''
 
             // Gets the values of the client object and put them into an array
             // then seeks if the text exists in one of the array's elements
             for(let data of Object.values(client))
-                if(data.toLowerCase().includes(searchBar.value.toLowerCase()))
+                if(data.toString().toLowerCase().includes(searchBar.value.toLowerCase()))
                     return true
 
             return false
@@ -228,8 +231,8 @@ const getCurrentPage = e => {
 // EVENTS
 
 addEventListener('DOMContentLoaded', async () => {
-    await getClientsData();
-    printCompleteClientsData();
+    await getClientsData()
+    printCompleteClientsData()
 })
 
 searchBar.addEventListener('keyup', printSearchedClientsData)
@@ -248,17 +251,17 @@ paginationContainer.addEventListener('click', e => {
     printCompleteClientsData()
 })
 
+
 // MODAL WINDOW
 
-const createUserBtn = document.getElementById('create-user-btn'), 
+const createUserBtn = document.getElementById('create-user-btn'),
+      editUserBtn = document.getElementById('edit-user-btn'),
       modalContainer = document.getElementById('modal-container'),
       modalFormContainer = document.getElementById('modal-form-container'),
-      modalForm = document.querySelector('#modal-form'),
-      modalContainerClose = document.getElementById('modal-container-close')
-
-createUserBtn.addEventListener('click', () => {
-    modalContainer.classList.add('modal-container-active');
-})
+      modalForm = document.getElementById('modal-form'),
+      modalContainerClose = document.getElementById('modal-container-close'),
+      modalFormTitle = document.getElementById('modal-form-title'),
+      modalFormBtn = document.getElementById('modal-form-submit')
 
 modalContainerClose.addEventListener('click', () => {
     modalContainer.classList.remove('modal-container-active');
@@ -276,12 +279,24 @@ modalForm.addEventListener('submit', e => {
     const xhttp = new XMLHttpRequest()
     const formData = new FormData(modalForm)
 
-    xhttp.open('POST', 'http://localhost:3001/api/users')
-    xhttp.send(formData)
+    const dataObject = {
+        status: formData.get('status'),
+        country: formData.get('country'),
+        company: formData.get('company'),
+        nombre: formData.get('name'),
+        email: formData.get('email')
+    }
 
-    xhttp.onreadystatechange = () => {
+    xhttp.open('POST', 'http://localhost:3001/api/users')
+    xhttp.setRequestHeader('Content-Type', 'application/json')
+    xhttp.send(JSON.stringify(dataObject))
+
+    xhttp.onreadystatechange = async () => {
         if(xhttp.readyState === 4 && xhttp.status === 200) {
             const data = xhttp.responseText
+
+            await getClientsData()
+            printCompleteClientsData()
 
             alert(data)
         }
@@ -289,6 +304,20 @@ modalForm.addEventListener('submit', e => {
 
     // fetch('http://localhost:3001/api/users/', {
     //     method: 'POST',
-    //     body: formData
+    //     body: JSON.stringify(dataObject)
     // });
+})
+
+createUserBtn.addEventListener('click', () => {
+    modalFormTitle.textContent = 'Agregar un nuevo usuario'
+    modalFormBtn.textContent = 'Agregar usuario'
+
+    modalContainer.classList.add('modal-container-active')
+})
+
+editUserBtn.addEventListener('click', () => {
+    modalFormTitle.textContent = 'Editar un usuario existente'
+    modalFormBtn.textContent = 'Editar usuario'
+
+    modalContainer.classList.add('modal-container-active')
 })

@@ -132,6 +132,7 @@ body {
 
 .container table tbody tr:hover {
     background: #2D77AE;
+    cursor: pointer;
 }
 
 .container table tbody tr td {
@@ -203,7 +204,7 @@ body {
     margin: 0;
     height: 100%;
     opacity: 0.1;
-    transition: .2s all ease-in;
+    transition: .3s all ease-in;
     width: 100%;
     z-index: -1;
 
@@ -227,7 +228,7 @@ body {
     box-shadow: 0 0 15px #000;
     max-width: 500px;
     transform: translateY(-200%);
-    transition: .2s all ease-in;
+    transition: .3s all ease-in;
     width: 90%;
 }
 

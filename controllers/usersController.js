@@ -15,7 +15,14 @@ exports.showAllUsers = async (req, res) => {
     res.send(users);
 }
 
-exports.createUser = (req, res) => {
-    // console.log(req.body);
-    res.send('User succesfully added');
+exports.createUser = async (req, res) => {
+    const doc = new User(
+        req.body
+    );
+
+    await doc.save();
+
+    doc.save((err) => console.log(err))
+
+    res.send('User added');
 }
