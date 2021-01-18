@@ -11,21 +11,23 @@
     <link rel="stylesheet" href="css/styles.css"/>
   </head>
   <body>
-    <div class="modal-container" id="modal-container" data-user="">
+    <div class="modal-container" id="modal-container">
       <div class="modal-form-container" id="modal-form-container">
         <div class="container-button">
           <h2 id="modal-form-title"></h2>
           <button class="modal-container-close" id="modal-container-close"><i class="las la-times"></i></button>
         </div>
-        <form class="modal-form" id="modal-form">
+        <form class="modal-form" id="modal-form" data-id="">
           <select class="modal-form-input" name="status" id="status" placeholder="Status:">
-            <option value="2">Active</option>
-            <option value="1">Away</option>
-            <option value="0">Offline</option>
+            <option value="#" selected="">Select status...</option>
+            <option value="Active">Active</option>
+            <option value="Away">Away</option>
+            <option value="Offline">Offline</option>
           </select>
           <input class="modal-form-input" type="text" name="name" id="name" placeholder="Name:"/>
           <input class="modal-form-input" type="text" name="company" id="company" placeholder="Company:"/>
           <select class="modal-form-input" name="country" id="country" placeholder="Country:">
+            <option value="#" selected="">Select country...</option>
             <option value="El Salvador">El Salvador</option>
             <option value="Guatemala">Guatemala</option>
             <option value="Mexico">Mexico</option>

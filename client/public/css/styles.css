@@ -3,7 +3,7 @@ body {
     color: #F2F2F2;
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
-    overflow: hidden;
+    margin: 0;
 }
 
 .container {
@@ -123,6 +123,33 @@ body {
 
 .container table thead tr th {
     padding: 1.25em;
+}
+
+/* Checkbox styles*/
+
+.container table tr input {
+    appearance: none;
+    background: #FFF;
+	border: 1px solid #FFF;
+	
+	padding: 7px;
+	border-radius: 5px;
+	display: inline-block;
+	position: relative;
+}
+
+.container table tr input:checked {
+    background: #2D77AE;
+}
+
+.container table tr input:checked::after {
+    content: '\2714';
+
+    color: #FFF;
+    font-size: 12px;
+    position: absolute;
+    top: -2px;
+    left: 2px;
 }
 
 /* Table rows styles */

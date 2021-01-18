@@ -30,17 +30,6 @@ const getClientsData = () => new Promise(resolve => {
             if(xhttp.readyState === 4 && xhttp.status === 200) {
                 const data = JSON.parse(xhttp.responseText)
 
-                data.forEach(item => {
-                    switch(item.status) {
-                        case 0: item.status = 'Offline'
-                            break;
-                        case 1: item.status = 'Away'
-                            break;
-                        case 2: item.status = 'Active'
-                            break;
-                    }
-                })
-
                 clientsData = data
 
                 resolve(true)
@@ -109,6 +98,7 @@ const printPaginationButtons = () => {
 
 const printRegisterRow = (position, item) => {
     const row = document.createElement('tr')
+    row.dataset.id = item._id
     
     row.innerHTML = `
         <td>${position}</td>
@@ -252,7 +242,7 @@ paginationContainer.addEventListener('click', e => {
 })
 
 
-// MODAL WINDOW (CREATE AND EDIT)
+// MODAL WINDOW (CREATE, UPDATE AND DELETE)
 
 const createUserBtn = document.getElementById('create-user-btn'),
       editUserBtn = document.getElementById('edit-user-btn'),
@@ -263,6 +253,13 @@ const createUserBtn = document.getElementById('create-user-btn'),
       modalContainerClose = document.getElementById('modal-container-close'),
       modalFormTitle = document.getElementById('modal-form-title'),
       modalFormBtn = document.getElementById('modal-form-submit')
+      
+const status = document.getElementById('status'),
+      name = document.getElementById('name'),
+      company = document.getElementById('company'),
+      country = document.getElementById('country'),
+      email = document.getElementById('email')
+
 
 modalContainerClose.addEventListener('click', () => {
     modalContainer.classList.remove('modal-container-active');
@@ -274,46 +271,18 @@ modalContainer.addEventListener('click', () => {
 
 modalFormContainer.addEventListener('click', e => e.stopPropagation())
 
-modalForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const xhttp = new XMLHttpRequest()
-    const formData = new FormData(modalForm)
-
-    const dataObject = {
-        status: formData.get('status'),
-        country: formData.get('country'),
-        company: formData.get('company'),
-        nombre: formData.get('name'),
-        email: formData.get('email')
-    }
-
-    xhttp.open('POST', 'http://localhost:3001/api/users')
-    xhttp.setRequestHeader('Content-Type', 'application/json')
-    xhttp.send(JSON.stringify(dataObject))
-
-    xhttp.onreadystatechange = async () => {
-        if(xhttp.readyState === 4 && xhttp.status === 200) {
-            const data = xhttp.responseText
-
-            await getClientsData()
-            printCompleteClientsData()
-
-            alert(data)
-        }
-    }
-
-    // fetch('http://localhost:3001/api/users/', {
-    //     method: 'POST',
-    //     body: JSON.stringify(dataObject)
-    // });
-})
 
 createUserBtn.addEventListener('click', () => {
     modalFormTitle.textContent = 'Agregar un nuevo usuario'
     modalFormBtn.textContent = 'Agregar usuario'
 
-    modalContainer.dataset.user = null;
+    modalForm.dataset.id = ''
+    status.value = '#'
+    name.value = ''
+    company.value = ''
+    country.value = '#'
+    email.value = ''
+
     modalContainer.classList.add('modal-container-active')
 })
 
@@ -335,7 +304,7 @@ editUserBtn.addEventListener('click', () => {
     else if(rowsChecked.length > 1) {
         Swal.fire({
             title: 'Error',
-            text: 'You can only choose one user to edit',
+            text: 'You must choose only one user to edit',
             icon: 'error'
         })
     }
@@ -343,20 +312,31 @@ editUserBtn.addEventListener('click', () => {
         modalFormTitle.textContent = 'Editar un usuario existente'
         modalFormBtn.textContent = 'Editar usuario'
 
+        const userData = clientsData.find(user => user._id === rowsChecked[0].dataset.id)
+        
+        modalForm.dataset.id = userData._id
+        status.value = userData.status
+        name.value = userData.nombre
+        company.value = userData.company
+        country.value = userData.country
+        email.value = userData.email
+
         modalContainer.classList.add('modal-container-active')
-        console.log(rowsChecked)
     }
 })
 
 deleteUserBtn.addEventListener('click', () => {
     const rows = Array.from(document.querySelectorAll('#rows-clients tr'))
-    
-    const rowsChecked = rows.filter(row => {
-        if(row.children[1].children[0].checked === true)
-            return row
-    })
 
-    if(rowsChecked.length === 0) {        
+    const rowsCheckedArray = rows.reduce((acc, row) => {
+        if(row.children[1].children[0].checked) {
+            acc = [...acc, { _id: row.dataset.id }]
+        }
+
+        return acc
+    }, [])
+
+    if(rowsCheckedArray.length === 0) {        
         Swal.fire({
             title: 'Error',
             text: 'You must select one or more users to delete',
@@ -366,19 +346,81 @@ deleteUserBtn.addEventListener('click', () => {
     else {
         Swal.fire({
             title: 'Delete user',
-            text: 'Are you sure to delete this user/s?',
+            text: `Are you sure to delete this ${rowsCheckedArray.length} user/s?`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it',
         })
         .then(result => {
             if(result.isConfirmed) {
-                Swal.fire({
-                    title: 'User'
-                })
+                const rowsChecked = Object.assign({}, rowsCheckedArray)
+
+                const xhttp = new XMLHttpRequest()
+                xhttp.open('DELETE', 'http://localhost:3001/api/users')
+                xhttp.setRequestHeader('Content-Type', 'application/json')
+                xhttp.send(JSON.stringify(rowsChecked))
+
+                xhttp.onreadystatechange = async () => {
+                    if(xhttp.readyState === 4 && xhttp.status === 200) {
+                        const data = xhttp.responseText
+
+                        Swal.fire({
+                            title: 'Success',
+                            text: data, //'User/s deleted successfully'
+                            icon: 'success'
+                        })
+
+                        await getClientsData()
+                        printCompleteClientsData()
+                    }
+                }
             }
         })
-
-        console.log(rowsChecked)
     }
+})
+
+
+modalForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const xhttp = new XMLHttpRequest()
+    const formData = new FormData(modalForm)
+
+    const dataObject = {
+        status: formData.get('status'),
+        country: formData.get('country'),
+        company: formData.get('company'),
+        nombre: formData.get('name'),
+        email: formData.get('email')
+    }
+
+    if(!modalForm.dataset.id) {
+        xhttp.open('POST', 'http://localhost:3001/api/users')
+    }
+    else {
+        dataObject._id = modalForm.dataset.id
+
+        xhttp.open('PUT', 'http://localhost:3001/api/users')
+    }
+
+    xhttp.setRequestHeader('Content-Type', 'application/json')
+    xhttp.send(JSON.stringify(dataObject))
+
+    xhttp.onreadystatechange = async () => {
+        if(xhttp.readyState === 4 && xhttp.status === 200) {
+            const {title, text, icon} = JSON.parse(xhttp.responseText)
+
+            Swal.fire({ title, text, icon })
+
+            if(icon === 'success') modalContainer.click()
+
+            await getClientsData()
+            printCompleteClientsData()
+        }
+    }
+
+    // fetch('http://localhost:3001/api/users/', {
+    //     method: 'POST',
+    //     body: JSON.stringify(dataObject)
+    // });
 })

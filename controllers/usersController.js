@@ -16,21 +16,42 @@ exports.showAllUsers = async (req, res) => {
 }
 
 exports.createUser = async (req, res) => {
-    const doc = new User(
-        req.body
-    );
+    const { status, country, company, nombre, email } = req.body
 
-    await doc.save();
+    if(status !== '#' && country !== '#' && company !== '' && nombre !== '' && email !== '') {
+        const doc = new User();
 
-    doc.save((err) => console.log(err))
+        await doc.save();
 
-    res.send('User added');
+        res.send({
+            title: "Success",
+            text: "User created successfully",
+            icon: "success"
+        });
+    }
+    else {
+        res.send({
+            title: "Error",
+            text: "The user couldn't be created. You must fill all the fields",
+            icon: "error"
+        });
+    }
 }
 
 exports.editUser = async (req, res) => {
+    const user = await User.findById(req.body._id);
 
+    const doc = await User.updateOne(user, req.body);
+
+    res.send(doc);
 }
 
-exports.deleteUser = async (req, res) => {
-    
+exports.deleteUser = (req, res) => {
+    const users = Object.values(req.body)
+
+    users.forEach(async user => {
+        await User.findOneAndDelete(user);
+    })
+
+    res.send("User/s deleted successfully");
 }

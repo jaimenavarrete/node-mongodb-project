@@ -13,21 +13,23 @@ html(lang="en")
 
         link(rel="stylesheet" href="css/styles.css")
     body
-        div(id="modal-container" class="modal-container" data-user="")
+        div(id="modal-container" class="modal-container")
             div(id="modal-form-container" class="modal-form-container")
                 .container-button
                     h2#modal-form-title
                     button(id="modal-container-close" class="modal-container-close")
                         i(class="las la-times")
 
-                form(id="modal-form" class="modal-form")
+                form(id="modal-form" class="modal-form" data-id="")
                     select(name="status" id="status" class="modal-form-input" placeholder="Status:")
-                        option(value="2") Active
-                        option(value="1") Away
-                        option(value="0") Offline
+                        option(value="#" selected="") Select status...
+                        option(value="Active") Active
+                        option(value="Away") Away
+                        option(value="Offline") Offline
                     input(type="text" name="name" id="name" class="modal-form-input" placeholder="Name:")
                     input(type="text" name="company" id="company" class="modal-form-input" placeholder="Company:")
                     select(name="country" id="country" class="modal-form-input" placeholder="Country:")
+                        option(value="#" selected="") Select country...
                         option(value="El Salvador") El Salvador
                         option(value="Guatemala") Guatemala
                         option(value="Mexico") Mexico
