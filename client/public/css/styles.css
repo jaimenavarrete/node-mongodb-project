@@ -53,10 +53,10 @@ body {
 /* Search bar styles */
 
 .container .options .search-bar input {
-    /* background: #404040; */
-    border: none;
+    background: #4C4C4C;
+    border: 1px solid #999999;
     border-radius: 5px;
-    /* color: #F2F2F2; */
+    color: #F2F2F2;
     font-family: 'Roboto', sans-serif;
     font-size: 1em;
     outline: none;
@@ -65,7 +65,10 @@ body {
 
 .container .options .search-bar select,
 .container .footer .show-entries select {
+    background: #4C4C4C;
+    border: 1px solid #999999;
     border-radius: 5px;
+    color: #F2F2F2;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
     font-size: 1em;
@@ -129,8 +132,8 @@ body {
 
 .container table tr input {
     appearance: none;
-    background: #FFF;
-	border: 1px solid #FFF;
+    background: #212121;
+	border: 1px solid #999999;
 	
 	padding: 7px;
 	border-radius: 5px;
@@ -140,6 +143,7 @@ body {
 
 .container table tr input:checked {
     background: #2D77AE;
+    border-color: #FFF;
 }
 
 .container table tr input:checked::after {

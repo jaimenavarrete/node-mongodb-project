@@ -19,7 +19,13 @@ exports.createUser = async (req, res) => {
     const { status, country, company, nombre, email } = req.body
 
     if(status !== '#' && country !== '#' && company !== '' && nombre !== '' && email !== '') {
-        const doc = new User();
+        const doc = new User({
+            status,
+            country,
+            company,
+            nombre,
+            email
+        });
 
         await doc.save();
 
@@ -39,11 +45,26 @@ exports.createUser = async (req, res) => {
 }
 
 exports.editUser = async (req, res) => {
-    const user = await User.findById(req.body._id);
+    const { status, country, company, nombre, email } = req.body
 
-    const doc = await User.updateOne(user, req.body);
+    if(status && status !== '#' && country && country !== '#' && company !== '' && nombre !== '' && email !== '') {
+        const findUser = await User.findById(req.body._id);
 
-    res.send(doc);
+        await User.updateOne(findUser, req.body);
+
+        res.send({
+            title: "Success",
+            text: "User edited successfully",
+            icon: "success"
+        });
+    }
+    else {
+        res.send({
+            title: "Error",
+            text: "The user couldn't be edited. You must fill all the fields",
+            icon: "error"
+        });
+    }
 }
 
 exports.deleteUser = (req, res) => {

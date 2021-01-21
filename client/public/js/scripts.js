@@ -21,9 +21,9 @@ let clientsData = [],
 const getClientsData = () => new Promise(resolve => {
         const xhttp = new XMLHttpRequest()
 
-        // xhttp.open('GET', 'https://www.json-generator.com/api/json/get/bZvyOuDMlK?indent=2')
-        // xhttp.open('GET', 'http://www.json-generator.com/api/json/get/ceDXcPLqsy?indent=2') // 3200 Datos
         xhttp.open('GET', 'http://localhost:3001/api/users')
+        
+        // xhttp.open('GET', 'https://jaimenavarrete.me/projects/usersdatatableapinode/api/users')
         xhttp.send()
 
         xhttp.onreadystatechange = () => {
@@ -144,9 +144,11 @@ const getSearchedClientsData = () => {
 
             // Gets the values of the client object and put them into an array
             // then seeks if the text exists in one of the array's elements
-            for(let data of Object.values(client))
+            for(let data of Object.values(client)) {
                 if(data.toString().toLowerCase().includes(searchBar.value.toLowerCase()))
                     return true
+            }
+                
 
             return false
         }
@@ -274,7 +276,8 @@ modalFormContainer.addEventListener('click', e => e.stopPropagation())
 
 createUserBtn.addEventListener('click', () => {
     modalFormTitle.textContent = 'Agregar un nuevo usuario'
-    modalFormBtn.textContent = 'Agregar usuario'
+    modalFormBtn.innerHTML = `<i class="las la-pen"></i> Agregar usuario`
+
 
     modalForm.dataset.id = ''
     status.value = '#'
@@ -310,7 +313,7 @@ editUserBtn.addEventListener('click', () => {
     }
     else {
         modalFormTitle.textContent = 'Editar un usuario existente'
-        modalFormBtn.textContent = 'Editar usuario'
+        modalFormBtn.innerHTML = `<i class="las la-pen"></i> Editar usuario`
 
         const userData = clientsData.find(user => user._id === rowsChecked[0].dataset.id)
         
@@ -329,9 +332,8 @@ deleteUserBtn.addEventListener('click', () => {
     const rows = Array.from(document.querySelectorAll('#rows-clients tr'))
 
     const rowsCheckedArray = rows.reduce((acc, row) => {
-        if(row.children[1].children[0].checked) {
-            acc = [...acc, { _id: row.dataset.id }]
-        }
+        if(row.children[1].children[0].checked) 
+            return acc = [...acc, { _id: row.dataset.id }]
 
         return acc
     }, [])
@@ -356,7 +358,8 @@ deleteUserBtn.addEventListener('click', () => {
                 const rowsChecked = Object.assign({}, rowsCheckedArray)
 
                 const xhttp = new XMLHttpRequest()
-                xhttp.open('DELETE', 'http://localhost:3001/api/users')
+                // xhttp.open('DELETE', 'http://localhost:3001/api/users')
+                xhttp.open('DELETE', 'https://jaimenavarrete.me/projects/usersdatatableapinode/api/users')
                 xhttp.setRequestHeader('Content-Type', 'application/json')
                 xhttp.send(JSON.stringify(rowsChecked))
 
@@ -366,7 +369,7 @@ deleteUserBtn.addEventListener('click', () => {
 
                         Swal.fire({
                             title: 'Success',
-                            text: data, //'User/s deleted successfully'
+                            text: data,
                             icon: 'success'
                         })
 
@@ -395,12 +398,14 @@ modalForm.addEventListener('submit', e => {
     }
 
     if(!modalForm.dataset.id) {
-        xhttp.open('POST', 'http://localhost:3001/api/users')
+        xhttp.open('POST', 'https://jaimenavarrete.me/projects/usersdatatableapinode/api/users')
+        // xhttp.open('POST', 'http://localhost:3001/api/users')
     }
     else {
         dataObject._id = modalForm.dataset.id
 
-        xhttp.open('PUT', 'http://localhost:3001/api/users')
+        xhttp.open('PUT', 'https://jaimenavarrete.me/projects/usersdatatableapinode/api/users')
+        // xhttp.open('PUT', 'http://localhost:3001/api/users')
     }
 
     xhttp.setRequestHeader('Content-Type', 'application/json')
