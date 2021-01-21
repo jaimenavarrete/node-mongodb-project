@@ -21,9 +21,9 @@ let clientsData = [],
 const getClientsData = () => new Promise(resolve => {
         const xhttp = new XMLHttpRequest()
 
-        xhttp.open('GET', 'http://localhost:3001/api/users')
+        // xhttp.open('GET', 'http://localhost:3001/api/users')
         
-        // xhttp.open('GET', 'https://jaimenavarrete.me/projects/usersdatatableapinode/api/users')
+        xhttp.open('GET', 'https://users-datatable-node.herokuapp.com/api/users')
         xhttp.send()
 
         xhttp.onreadystatechange = () => {
@@ -359,7 +359,7 @@ deleteUserBtn.addEventListener('click', () => {
 
                 const xhttp = new XMLHttpRequest()
                 // xhttp.open('DELETE', 'http://localhost:3001/api/users')
-                xhttp.open('DELETE', 'https://jaimenavarrete.me/projects/usersdatatableapinode/api/users')
+                xhttp.open('DELETE', 'https://users-datatable-node.herokuapp.com/api/users')
                 xhttp.setRequestHeader('Content-Type', 'application/json')
                 xhttp.send(JSON.stringify(rowsChecked))
 
@@ -398,13 +398,13 @@ modalForm.addEventListener('submit', e => {
     }
 
     if(!modalForm.dataset.id) {
-        xhttp.open('POST', 'https://jaimenavarrete.me/projects/usersdatatableapinode/api/users')
+        xhttp.open('POST', 'https://users-datatable-node.herokuapp.com/api/users')
         // xhttp.open('POST', 'http://localhost:3001/api/users')
     }
     else {
         dataObject._id = modalForm.dataset.id
 
-        xhttp.open('PUT', 'https://jaimenavarrete.me/projects/usersdatatableapinode/api/users')
+        xhttp.open('PUT', 'https://users-datatable-node.herokuapp.com/api/users')
         // xhttp.open('PUT', 'http://localhost:3001/api/users')
     }
 
