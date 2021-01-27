@@ -22,7 +22,6 @@ const getClientsData = () => new Promise(resolve => {
         const xhttp = new XMLHttpRequest()
 
         // xhttp.open('GET', 'http://localhost:3001/api/users')
-        
         xhttp.open('GET', 'https://users-datatable-node.herokuapp.com/api/users')
         xhttp.send()
 

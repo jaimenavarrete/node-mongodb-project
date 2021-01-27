@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 
+// Called the environment variables package
+if(process.env.NODE_ENV !== 'production') require('dotenv').config();
+
 // MongoDB Connection with mongoose
 const mongoose = require('./config/db');
 mongoose.connection.once('open', () => console.log('Connected to MongoDB'));

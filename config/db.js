@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
-const user = 'jaime'
-const pass = 'Reemerge-Sled6-Glucose';
-const dbName = 'UsersDatatableNode'
+const cluster = process.env.CLUSTER_NAME;
+const user = process.env.DB_USER;
+const pass = process.env.DB_PASS;
+const dbName = process.env.DB_NAME;
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
     // 'mongodb://localhost:27017/usersDatatable',
-    `mongodb+srv://${user}:${pass}@usersdatatablenode.afaje.mongodb.net/${dbName}?retryWrites=true&w=majority`,
+    `mongodb+srv://${user}:${pass}@${cluster}.afaje.mongodb.net/${dbName}?retryWrites=true&w=majority`,
     { 
         useNewUrlParser: true,
         useUnifiedTopology: true
